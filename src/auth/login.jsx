@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import {auth, db } from "../config/firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { getDocs, collection } from "firebase/firestore";
+import { onAuthStateChanged } from "firebase/auth";
+
 export default function Login() {
     const navigate = useNavigate();
     const [email, setEmail] = useState("");
@@ -11,6 +13,17 @@ export default function Login() {
     const [employeesFile, setEmployeesFile] = useState([]);
     const collectionRef = collection(db,"managers");
 
+    useEffect(()=>{
+        const unsubscribe = onAuthStateChanged(auth, (user) => {
+            if (user) {
+                // User is signed in, you can navigate to the desired page
+                navigate("/departments");
+            }
+        });
+
+        // Clean up the listener when the component unmounts
+        return () => unsubscribe();
+    },[])
 
 
     useEffect(()=>{
