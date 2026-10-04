@@ -21,7 +21,7 @@ function App() {
   return (
     <div className='w-full h-screen bg-blue-300 font-mono'>
       <div className='absolute left-[52%] translate-x-[-50%] text-2xl mt-3 text-fuchsia-400 p-3 rounded-full bg-gray-500/30'>Products Management System</div>
-      <BrowserRouter basename='/product-management-system'>
+      <BrowserRouter basename={import.meta.env.BASE_URL}>
         <Routes>
           <Route path='/' element={<Login />} />
           <Route path='/products/employees' element={<Employees />} />
